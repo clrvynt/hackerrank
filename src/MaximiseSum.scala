@@ -12,9 +12,10 @@ object MaximiseSum {
             var m = sc.nextLong();
             var arr = new Array[Long](n);
             for(i <- 0 to n-1) {
-               arr(i) = sc.nextLong()
+               arr(i) = sc.nextLong() % m
             }
             a0+=1
+            
             
             /* BRUTE FORCE */
             def bruteForce() = {
@@ -32,8 +33,23 @@ object MaximiseSum {
             
             /* KADANE's ALGORITHM */
             def kadanes() = {
+              var maxCurr = 0L
+              var max = 0L
+              var prev = 0L
+              for (i <- 0 to n-1) {
+                if ( i > 0)
+                  prev = arr(i-1)
+                  
+                maxCurr = math.max(maxCurr, math.max((maxCurr + arr(i)) % m, (maxCurr + prev) % m))
+                max = math.max(max, maxCurr)
+              }
               
+              println(max)
             }
+            
+            kadanes()
+            bruteForce()
+              
         }
     }
 }
